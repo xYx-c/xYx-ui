@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 use uix::{
-    components::elements::button::Button,
+    elements::button::Button,
     models::{color::Colors, size::Sizes},
 };
 
@@ -13,8 +13,10 @@ fn main() {
 pub fn app(cx: Scope) -> Element {
     cx.render(rsx! {
         Button {
-            color: Colors::Link,
-            size: Sizes::Small,
+            color: Colors::Success,
+            size: Sizes::Normal,
+            is_light: true,
+            disabled: false,
             onclick: move |e| {
                 tracing::info!("Clicked!{:?}", e);
             }
