@@ -1,4 +1,5 @@
 
+#[derive(Clone, Copy, Debug)]
 pub enum Sizes {
     Small,
     Normal,
@@ -12,13 +13,13 @@ impl Default for Sizes {
     }
 }
 
-impl ToString for Sizes {
-    fn to_string(&self) -> String {
+impl Into<&str> for Sizes {
+    fn into(self) -> &'static str {
         match self {
-            Sizes::Small => "small".to_string(),
-            Sizes::Normal => "normal".to_string(),
-            Sizes::Medium => "medium".to_string(),
-            Sizes::Large => "large".to_string(),
+            Sizes::Small => " is-small",
+            Sizes::Normal => " is-normal",
+            Sizes::Medium => " is-medium",
+            Sizes::Large => " is-large",
         }
     }
 }

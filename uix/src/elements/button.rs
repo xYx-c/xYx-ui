@@ -41,8 +41,8 @@ pub struct ButtonProps<'a> {
 
 pub fn Button<'a>(cx: Scope<'a, ButtonProps<'a>>) -> Element {
     let mut class_name = String::from("button");
-    class_name += &format!(" is-{}", cx.props.color.to_string());
-    class_name += &format!(" is-{}", cx.props.size.to_string());
+    class_name += cx.props.color.into();
+    class_name += cx.props.size.into();
     if cx.props.is_light {
         class_name += " is-light";
     }
@@ -70,6 +70,16 @@ pub fn Button<'a>(cx: Scope<'a, ButtonProps<'a>>) -> Element {
             disabled: "{cx.props.disabled}",
             onclick: move |evt| cx.props.onclick.call(evt),
             &cx.props.children,
+        }
+    })
+}
+
+#[inline_props]
+pub fn Buttons<'a>(cx: Scope, children: Element<'a>) -> Element {
+    cx.render(rsx! {
+        div {
+            class: "buttons",
+            children,
         }
     })
 }

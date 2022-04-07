@@ -18,20 +18,19 @@ impl Default for Colors {
     }
 }
 
-impl ToString for Colors {
-    fn to_string(&self) -> String {
+impl Into<&str> for Colors {
+    fn into(self) -> &'static str {
         match self {
-            Colors::Primary => "primary".to_string(),
-            Colors::Link => "link".to_string(),
-            Colors::Info => "info".to_string(),
-            Colors::Success => "success".to_string(),
-            Colors::Warning => "warning".to_string(),
-            Colors::Danger => "danger".to_string(),
-            Colors::Black => "black".to_string(),
-            Colors::Dark => "dark".to_string(),
-            Colors::Light => "light".to_string(),
-            Colors::White => "white".to_string(),
+            Colors::Primary => " is-primary",
+            Colors::Link => " is-link",
+            Colors::Info => " is-info",
+            Colors::Success => " is-success",
+            Colors::Warning => " is-warning",
+            Colors::Danger => " is-danger",
+            Colors::Black => " is-black",
+            Colors::Dark => " is-dark",
+            Colors::Light => " is-light",
+            Colors::White => " is-white",
         }
     }
 }
-
