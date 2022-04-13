@@ -1,20 +1,15 @@
 [package]
-name = "uix"
+name = "notification"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.2" }
+dioxus = { version = "0.2", features = ["web", "router"] }
 wasm-bindgen = "0.2"
-wasm-bindgen-futures = "0.4"
-timer = "0.2"
-chrono = "0.4"
-js-sys = "0.3"
-web-sys = "0.3"
-gloo = "0.6"
-tokio = { version = "1", features = ["time"] }
+console_error_panic_hook = "*"
 tracing-wasm = "0.2"
 tracing= "0.1"
 
+uix = {path = "../../uix"}
