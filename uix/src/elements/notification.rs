@@ -25,8 +25,10 @@ pub fn Notification<'a>(cx: Scope<'a, NotificationProps<'a>>) -> Element {
     //     TimeoutFuture::new(4000).await;
     //     if !*closed.get() {closed.set(true)}
     // });
-    let test = document().get_element_by_id("main");
-    tracing::debug!("test: {:?}", test);
+    use_future(&cx, (), |_| async {
+        let test = document().get_element_by_id("test");
+        tracing::debug!("test: {:#?}", test);
+    });
     class_name += cx.props.color.into();
     if cx.props.is_light {
         class_name += " is-light";
@@ -35,10 +37,11 @@ pub fn Notification<'a>(cx: Scope<'a, NotificationProps<'a>>) -> Element {
         if cx.props.is_delete {
             cx.render(rsx! {
                 div {
+                    id: "test",
                     class: "{class_name}",
                     button {
                         class: "delete",
-                        onclick: move |_| closed.set(true)
+                        onclick: |_| click(closed)
                     }
                     &cx.props.children
                 }
@@ -55,4 +58,18 @@ pub fn Notification<'a>(cx: Scope<'a, NotificationProps<'a>>) -> Element {
     } else {
         None
     }
+}
+
+fn click(closed: &UseState<bool>) {
+    let test = document().get_element_by_id("test");
+    // if let Some(test) = &test {
+    //     test.set_attribute("aaa", "123")
+    //         .map_err(|e| tracing::debug!("{:#?}", e))
+    //         .ok();
+    // }
+    test.as_ref().map(|el| {
+        el.set_attribute("aa", "222")
+    });
+    tracing::debug!("{:#?}", test);
+    closed.set(true);
 }
