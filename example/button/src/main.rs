@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use uix::{
+use ui::{
     elements::button::Button,
     models::{color::Colors, size::Sizes},
 };

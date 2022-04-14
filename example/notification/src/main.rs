@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use uix::elements::button::Button;
-use uix::elements::notification;
+use ui::elements::button::Button;
+use ui::elements::notification;
 
 fn main() {
     console_error_panic_hook::set_once();
@@ -11,11 +11,8 @@ fn main() {
 fn app(cx: Scope) -> Element {
     cx.render(rsx! {
         Button {
-            onclick: move |_evt| {
-                notification::open(cx);
-            },
+            onclick: move |_evt| notification::open(),
             "click"
-            rsx! (div {"1111111111"})
         }
     })
 }

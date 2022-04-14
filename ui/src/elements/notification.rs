@@ -3,6 +3,7 @@ use dioxus::prelude::*;
 // use gloo::timers::callback::Timeout;
 // use gloo::timers::future::TimeoutFuture;
 use gloo::{utils::{document, body}, timers::future::TimeoutFuture};
+use js_sys::Function;
 use wasm_bindgen_futures::spawn_local;
 
 #[derive(Props)]
@@ -16,20 +17,34 @@ pub struct NotificationProps<'a> {
     children: Element<'a>,
 }
 
-pub fn open(cx: Scope) {
+pub fn open() {
     let body = body();
+    let count = document().get_elements_by_class_name("notification").length();
+
     let div = document().create_element("div").ok().expect("create div error");
     div.set_class_name("notification");
     div.set_text_content(Some("hello world"));
-    let aa = rsx!(div{"asd"});
-    cx.render(aa);
-    body.append_child(&div).map_err(|e| tracing::debug!("{:#?}", e)).ok();
+    body.append_child(&div).ok();
+
     let button = document().create_element("button").ok().expect("create button error");
-    button.set_class_name("delete");
     div.append_child(&button).ok();
+    button.set_class_name("delete");
+    let fun = Function::new_with_args("event", "
+        this.parentNode.remove();
+    ");
+    button.add_event_listener_with_callback("click", &fun).map_err(|e| tracing::debug!("{:#?}", e)).ok();
+
+    let mut style = "".to_string();
+    let height = div.client_height() as u32 * count + 16 * (count + 1);
+    style.push_str(&format!("top: {}px;", height));
+    style += "width: 330px;";
+    style += "position: fixed;";
+    style += "right: 16px;";
+    div.set_attribute("style", &style).ok();
+
     spawn_local(async move {
         TimeoutFuture::new(4500).await;
-        body.remove_child(&div).map_err(|_| tracing::debug!("remove_child error")).ok();
+        body.remove_child(&div).ok();
     });
 }
 
