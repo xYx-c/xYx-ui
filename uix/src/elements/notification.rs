@@ -2,7 +2,8 @@ use crate::models::color::Colors;
 use dioxus::prelude::*;
 // use gloo::timers::callback::Timeout;
 // use gloo::timers::future::TimeoutFuture;
-use gloo::utils::document;
+use gloo::{utils::{document, body}, timers::future::TimeoutFuture};
+use wasm_bindgen_futures::spawn_local;
 
 #[derive(Props)]
 pub struct NotificationProps<'a> {
@@ -14,6 +15,24 @@ pub struct NotificationProps<'a> {
     is_delete: bool,
     children: Element<'a>,
 }
+
+pub fn open(cx: Scope) {
+    let body = body();
+    let div = document().create_element("div").ok().expect("create div error");
+    div.set_class_name("notification");
+    div.set_text_content(Some("hello world"));
+    let aa = rsx!(div{"asd"});
+    cx.render(aa);
+    body.append_child(&div).map_err(|e| tracing::debug!("{:#?}", e)).ok();
+    let button = document().create_element("button").ok().expect("create button error");
+    button.set_class_name("delete");
+    div.append_child(&button).ok();
+    spawn_local(async move {
+        TimeoutFuture::new(4500).await;
+        body.remove_child(&div).map_err(|_| tracing::debug!("remove_child error")).ok();
+    });
+}
+
 pub fn Notification<'a>(cx: Scope<'a, NotificationProps<'a>>) -> Element {
     let mut class_name = "notification".to_string();
     let closed = use_state(&cx, || false);
@@ -37,8 +56,13 @@ pub fn Notification<'a>(cx: Scope<'a, NotificationProps<'a>>) -> Element {
         if cx.props.is_delete {
             cx.render(rsx! {
                 div {
-                    id: "test",
                     class: "{class_name}",
+                    top: "16px",
+                    right: "16px",
+                    position: "fixed",
+                    width: "330px",
+                    display: "flex",
+                    z_index: "2005",
                     button {
                         class: "delete",
                         onclick: |_| click(closed)
