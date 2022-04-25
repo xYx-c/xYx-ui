@@ -12,4 +12,4 @@ console_error_panic_hook = "*"
 tracing-wasm = "0.2"
 tracing= "0.1"
 
-ui = {path = "../../ui"}
+fex = {path = "../../fex"}

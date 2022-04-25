@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use ui::elements::button::Button;
-use ui::elements::notification;
+use fex::elements::button::Button;
+use fex::elements::notification;
 
 fn main() {
     console_error_panic_hook::set_once();

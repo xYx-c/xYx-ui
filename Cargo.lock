@@ -71,9 +71,9 @@ version = "0.1.0"
 dependencies = [
  "console_error_panic_hook",
  "dioxus",
+ "fex",
  "tracing",
  "tracing-wasm",
- "ui",
  "wasm-bindgen",
 ]
 
@@ -115,6 +115,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a06aeb73f470f66dcdbf7223caeebb85984942f22f1adb2a088cf9668146bbbc"
 dependencies = [
  "cfg-if",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "container"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "dioxus",
+ "fex",
+ "tracing",
+ "tracing-wasm",
  "wasm-bindgen",
 ]
 
@@ -236,6 +248,24 @@ dependencies = [
  "once_cell",
  "serde-wasm-bindgen 0.4.2",
  "smallstr",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
+name = "fex"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "dioxus",
+ "gloo",
+ "js-sys",
+ "lazy_static",
+ "timer",
+ "tokio",
+ "tracing",
+ "tracing-wasm",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
@@ -585,9 +615,9 @@ version = "0.1.0"
 dependencies = [
  "console_error_panic_hook",
  "dioxus",
+ "fex",
  "tracing",
  "tracing-wasm",
- "ui",
  "wasm-bindgen",
 ]
 
@@ -951,24 +981,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "ui"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "dioxus",
- "gloo",
- "js-sys",
- "lazy_static",
- "timer",
- "tokio",
- "tracing",
- "tracing-wasm",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
 ]
 
 [[package]]
