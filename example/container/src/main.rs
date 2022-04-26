@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use fex::layout::container::Container;
+use fex::{layout::container::Container, elements::r#box::Box};
 
 fn main() {
     console_error_panic_hook::set_once();
@@ -10,8 +10,7 @@ fn main() {
 fn app(cx: Scope) -> Element {
     cx.render(rsx! {
             Container {
-                div {
-                    class: "box is-primary",
+                Box {
                     "This container is "
                     strong {
                         "centered"
