@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use fex::{layout::container::Container, elements::r#box::Box};
+use xYx_ui::{layout::container::Container, elements::r#box::Box};
 
 fn main() {
     console_error_panic_hook::set_once();

@@ -7,9 +7,9 @@ edition = "2021"
 
 [dependencies]
 
-dioxus = { version = "0.2", features = ["web", "router"] }
-wasm-bindgen = "0.2"
+dioxus = { version = "^0", features = ["web", "router"] }
+wasm-bindgen = "^0.2"
 console_error_panic_hook = "*"
-tracing-wasm = "0.2"
-tracing= "0.1"
-fex = { path = "../../fex" }
+tracing-wasm = "^0.2"
+tracing= "^0.1"
+xYx-ui = { path = "../../xYx-ui" }

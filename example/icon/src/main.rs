@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use fex::{elements::icon::Icon, models::size::Sizes};
+use xYx_ui::{elements::icon::Icon, models::size::Sizes};
 
 fn main() {
     console_error_panic_hook::set_once();
@@ -24,7 +24,7 @@ pub fn app(cx: Scope) -> Element {
         Icon {
             icon: "fas fa-2x fa-home",
             size: Sizes::Medium,
-            color: fex::elements::icon::Color::Info,
+            color: xYx_ui::elements::icon::Color::Info,
             "Home"
         }
         Icon {

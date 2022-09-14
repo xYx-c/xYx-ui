@@ -17,21 +17,19 @@ pub struct NotificationProps<'a> {
     children: Element<'a>,
 }
 
-pub fn open() {
+pub fn notify(messgae: &str) {
     let body = body();
     let count = document().get_elements_by_class_name("notification").length();
 
     let div = document().create_element("div").ok().expect("create div error");
     div.set_class_name("notification");
-    div.set_text_content(Some("hello world"));
+    div.set_text_content(Some(messgae));
     body.append_child(&div).ok();
 
     let button = document().create_element("button").ok().expect("create button error");
     div.append_child(&button).ok();
     button.set_class_name("delete");
-    let fun = Function::new_with_args("event", "
-        this.parentNode.remove();
-    ");
+    let fun = Function::new_with_args("event", "this.parentNode.remove();");
     button.add_event_listener_with_callback("click", &fun).map_err(|e| tracing::debug!("{:#?}", e)).ok();
 
     let mut style = "".to_string();
