@@ -12,7 +12,7 @@ pub struct IconProps<'a> {
     children: Element<'a>
 }
 
-
+/// https://ionic.io/ionicons
 pub fn Icon<'a>(cx: Scope<'a, IconProps<'a>>) -> Element {
     let mut icon: String = "icon".into();
     icon += cx.props.size.into();
