@@ -17,10 +17,18 @@ pub struct ColProps<'a> {
 pub fn Col<'a>(cx: Scope<'a, ColProps<'a>>) -> Element {
     let mut class_name = String::from("column");
     if cx.props.span > 0 {
-        class_name.push_str(&format!(" is-{}", cx.props.span));
+        if cx.props.span > 12 {
+            class_name += " is-12";
+        } else {
+            class_name += &format!(" is-{}", cx.props.span);
+        }
     }
     if cx.props.offset > 0 {
-        class_name.push_str(&format!(" is-offset-{}", cx.props.offset));
+        if cx.props.offset > 11 {
+            class_name += " is-offset-11";
+        } else {
+            class_name += &format!(" is-offset-{}", cx.props.offset);
+        }
     }
     if cx.props.narrow {
         class_name.push_str(" is-narrow");

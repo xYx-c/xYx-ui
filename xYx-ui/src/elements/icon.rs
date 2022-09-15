@@ -9,7 +9,7 @@ pub struct IconProps<'a> {
     size: Sizes,
     #[props(default)]
     color: Color,
-    children: Element<'a>
+    children: Element<'a>,
 }
 
 /// https://ionic.io/ionicons
@@ -22,20 +22,15 @@ pub fn Icon<'a>(cx: Scope<'a, IconProps<'a>>) -> Element {
         span {
             class: "{icon_text}",
             span {
-                class: "{icon}", 
+                class: "{icon}",
                 i {
                     class: "{cx.props.icon}"
                 }
             }
-            span {
-                &cx.props.children
-            }
+            &cx.props.children
         }
     })
 }
-
-
-
 
 #[derive(Clone, Copy)]
 pub enum Color {

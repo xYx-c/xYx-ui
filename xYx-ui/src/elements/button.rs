@@ -1,5 +1,5 @@
-use dioxus::{prelude::*, events::MouseEvent};
 use crate::models::{color::Colors, size::Sizes};
+use dioxus::{events::MouseEvent, prelude::*};
 
 #[derive(PartialEq)]
 pub enum State {
@@ -35,6 +35,10 @@ pub struct ButtonProps<'a> {
     #[props(default)]
     disabled: bool,
     #[props(default)]
+    icon: &'a str,
+    #[props(default)]
+    is_selected: bool,
+    #[props(default)]
     onclick: EventHandler<'a, MouseEvent>,
     children: Element<'a>,
 }
@@ -64,22 +68,62 @@ pub fn Button<'a>(cx: Scope<'a, ButtonProps<'a>>) -> Element {
     if cx.props.is_loading {
         class_name += " is-loading";
     }
-    cx.render(rsx! {
-        button {
-            class: "{class_name}",
-            disabled: "{cx.props.disabled}",
-            onclick: move |evt| cx.props.onclick.call(evt),
-            &cx.props.children,
-        }
-    })
+    if cx.props.is_selected {
+        class_name += " is-selected";
+    }
+    if cx.props.icon != "" {
+        cx.render(rsx! {
+            button {
+                class: "{class_name}",
+                disabled: "{cx.props.disabled}",
+                onclick: move |evt| cx.props.onclick.call(evt),
+                span {
+                    class: "icon",
+                    i {
+                        class: "{cx.props.icon}",
+                    }
+                }
+                &cx.props.children,
+            }
+        })
+    } else {
+        cx.render(rsx! {
+            button {
+                class: "{class_name}",
+                disabled: "{cx.props.disabled}",
+                onclick: move |evt| cx.props.onclick.call(evt),
+                &cx.props.children,
+            }
+        })
+    }
 }
 
-#[inline_props]
-pub fn Buttons<'a>(cx: Scope, children: Element<'a>) -> Element {
+#[derive(Props)]
+pub struct ButtonsProps<'a>{
+    #[props(default)]
+    has_addons: bool,
+    #[props(default)]
+    is_centered: bool,
+    #[props(default)]
+    is_right: bool,
+    children: Element<'a>,
+}
+
+pub fn Buttons<'a>(cx: Scope<'a, ButtonsProps<'a>>) -> Element {
+    let mut class = String::from("buttons");
+    if cx.props.has_addons {
+        class += " has-addons";
+    }
+    if cx.props.is_centered {
+        class += " is-centered";
+    }
+    if cx.props.is_right {
+        class += " is-right";
+    }
     cx.render(rsx! {
         div {
-            class: "buttons",
-            children,
+            class: "{class}",
+            &cx.props.children,
         }
     })
 }

@@ -34,7 +34,11 @@ pub fn Row<'a>(cx: Scope<'a, RowProps<'a>>) -> Element {
         class_name.push_str(" is-gapless");
     }
     if cx.props.gap > 0 {
-        class_name.push_str(&format!(" is-{}", cx.props.gap));
+        if cx.props.gap > 8 {
+            class_name.push_str(" is-8");
+        } else {
+            class_name.push_str(&format!(" is-{}", cx.props.gap));
+        }
     }
     if cx.props.is_multiline {
         class_name.push_str(" is-multiline");
